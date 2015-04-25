@@ -8,11 +8,14 @@ Direct3D:
 Begin MonoManager ReloadAssembly
 Platform assembly: C:\Users\Andres R\Documents\VRClassroom\VRClassroom\Executables\Andres_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading C:\Users\Andres R\Documents\VRClassroom\VRClassroom\Executables\Andres_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Andres R\Documents\VRClassroom\VRClassroom\Executables\Andres_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Andres R\Documents\VRClassroom\VRClassroom\Executables\Andres_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: C:\Users\Andres R\Documents\VRClassroom\VRClassroom\Executables\Andres_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\Andres R\Documents\VRClassroom\VRClassroom\Executables\Andres_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.081 seconds
+- Completed reload, in  0.100 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 Platform assembly: C:\Users\Andres R\Documents\VRClassroom\VRClassroom\Executables\Andres_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Andres R\Documents\VRClassroom\VRClassroom\Executables\Andres_Data\Managed\System.dll (this message is harmless)
