@@ -41,7 +41,7 @@ public class IsLookingAt : MonoBehaviour {
 	void deSelect( ) 
 	{
 		if (lastSelected != null) {
-//			lastSelected.transform.Rotate (new Vector3 (0, 92, 0));
+			lastSelected.transform.Rotate (new Vector3 (0, 92, 0));
 //			lastSelected.SetActive (true);
 		}
 		lastSelected = null;
@@ -52,7 +52,7 @@ public class IsLookingAt : MonoBehaviour {
 	{
 		lastSelected = obj;
 		showText ( obj.name != null? obj.name : "Nothing" );
-//		lastSelected.transform.Rotate (new Vector3 (0, -92, 0));
+		lastSelected.transform.Rotate (new Vector3 (0, -92, 0));
 //		lastSelected.SetActive (false);
 	}
 
