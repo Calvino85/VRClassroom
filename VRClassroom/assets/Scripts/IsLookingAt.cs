@@ -41,8 +41,11 @@ public class IsLookingAt : MonoBehaviour {
 	void deSelect( ) 
 	{
 		if (lastSelected != null) {
-			lastSelected.transform.Rotate (new Vector3 (0, 92, 0));
+//			lastSelected.transform.Rotate (new Vector3 (0, 92, 0));
 //			lastSelected.SetActive (true);
+			StudentScript script = (StudentScript)lastSelected.GetComponent (typeof(StudentScript));
+			if( script != null )
+				script.ResetRotation ();
 		}
 		lastSelected = null;
 		showText( "Nothing" );
@@ -52,7 +55,10 @@ public class IsLookingAt : MonoBehaviour {
 	{
 		lastSelected = obj;
 		showText ( obj.name != null? obj.name : "Nothing" );
-		lastSelected.transform.Rotate (new Vector3 (0, -92, 0));
+//		lastSelected.transform.Rotate (new Vector3 (0, -92, 0));
+		StudentScript script = (StudentScript)lastSelected.GetComponent (typeof(StudentScript));
+		if( script != null )
+			script.Stare (origin.transform.position);
 //		lastSelected.SetActive (false);
 	}
 
