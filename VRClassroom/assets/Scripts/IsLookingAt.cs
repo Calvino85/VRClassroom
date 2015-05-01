@@ -53,7 +53,7 @@ public class IsLookingAt : MonoBehaviour {
 //			lastSelected.SetActive (true);
 			StudentScript script = (StudentScript)lastSelected.GetComponent (typeof(StudentScript));
 			if( script != null )
-				script.ResetRotation ();
+				script.TheStudentIsNotLooking (origin.transform.position);
 		}
 		lastSelected = null;
 		showText( "Nothing" );
@@ -66,7 +66,7 @@ public class IsLookingAt : MonoBehaviour {
 //		lastSelected.transform.Rotate (new Vector3 (0, -92, 0));
 		StudentScript script = (StudentScript)lastSelected.GetComponent (typeof(StudentScript));
 		if( script != null )
-			script.Stare (origin.transform.position);
+			script.TheStudentIsLooking (origin.transform.position);
 //		lastSelected.SetActive (false);
 	}
 
