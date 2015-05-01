@@ -19,20 +19,23 @@ public class StudentScript : MonoBehaviour {
 	
 	public void Stare(Vector3 position) {
 		if (!toStare && !toInitialState) {
+			// stare at the same height as the original avatar... Right now it is too high...
+			Vector3 p = new Vector3(position.x,transform.position.y,position.z);
 			toStare = true;
 			initTime = Time.time;
-			finalDirection = Quaternion.LookRotation( (position - transform.position), transform.up );
+			finalDirection = Quaternion.LookRotation( (p - transform.position), transform.up );
 			delta = 0.0f;
 		}
 	}
 	
 	public void ResetRotation() {
-		if( !toInitialState && toStare) {
+//		if( !toInitialState && toStare ) {
 			toStare = false;
 			toInitialState = true;
 			initTime = Time.time;
+			//finalDirection = transform.rotation;
 			delta = 0.0f;
-		}
+//		}
 	}	
 
 	// Update is called once per frame
