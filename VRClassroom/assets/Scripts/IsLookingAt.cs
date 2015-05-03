@@ -3,7 +3,10 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class IsLookingAt : MonoBehaviour {
-	public GameObject origin;
+	public GameObject oculus;
+	public GameObject normalCam;
+	// Assumming one of the previous ones is null, the following one points to it
+	GameObject origin;
 	public Text output;
 	public GameObject output2; // Assuming it has a Text mesh
 	GameObject lastSelected;
@@ -15,6 +18,10 @@ public class IsLookingAt : MonoBehaviour {
 		lastSelected = null;
 		targetWasHit =  false; 
 		lastTime = Time.time;
+		if (oculus != null)
+			origin = oculus;
+		if (normalCam != null)
+			origin = normalCam;
 	}
 
 	// Update is called once per frame
@@ -23,8 +30,8 @@ public class IsLookingAt : MonoBehaviour {
 //		var cameraCenter = camera.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, camera.nearClipPlane));
 		//		if (Physics.Raycast(cameraCenter, this.transform.forward, out hit, 1000))
 		var colliderHit = Physics.Raycast (origin.transform.position, origin.transform.forward, out hit, Mathf.Infinity);
-		Debug.DrawRay(origin.transform.position, origin.transform.forward, Color.green);
-		if (colliderHit && !targetWasHit && Time.time - lastTime > 1.0) {
+//		Debug.DrawRay(origin.transform.position, origin.transform.forward, Color.green);
+		if (colliderHit && Time.time - lastTime > 1.0) {
 			targetWasHit =  true;
 			lastTime = Time.time;
 			var obj = hit.transform.gameObject;
@@ -32,8 +39,9 @@ public class IsLookingAt : MonoBehaviour {
 				deSelect( );					
 				select( obj );
 			}
-		} else if (!colliderHit && targetWasHit) {
+		} else if (!colliderHit && targetWasHit && Time.time - lastTime > 1.0) {
 			targetWasHit =  false;
+			lastTime = Time.time;
 			deSelect( );	
 		}
 	}
@@ -45,7 +53,7 @@ public class IsLookingAt : MonoBehaviour {
 //			lastSelected.SetActive (true);
 			StudentScript script = (StudentScript)lastSelected.GetComponent (typeof(StudentScript));
 			if( script != null )
-				script.ResetRotation ();
+				script.TheStudentIsNotLooking (origin.transform.position);
 		}
 		lastSelected = null;
 		showText( "Nothing" );
@@ -58,7 +66,7 @@ public class IsLookingAt : MonoBehaviour {
 //		lastSelected.transform.Rotate (new Vector3 (0, -92, 0));
 		StudentScript script = (StudentScript)lastSelected.GetComponent (typeof(StudentScript));
 		if( script != null )
-			script.Stare (origin.transform.position);
+			script.TheStudentIsLooking (origin.transform.position);
 //		lastSelected.SetActive (false);
 	}
 
