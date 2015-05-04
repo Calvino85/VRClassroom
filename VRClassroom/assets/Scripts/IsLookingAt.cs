@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class IsLookingAt : MonoBehaviour {
 	public GameObject oculus;
 	public GameObject normalCam;
-	// Assumming one of the previous ones is null, the following one points to it
+	// Assumming one of the previous ones is not null, the following one points to it
 	GameObject origin;
 	public Text output;
 	public GameObject output2; // Assuming it has a Text mesh
@@ -18,10 +18,14 @@ public class IsLookingAt : MonoBehaviour {
 		lastSelected = null;
 		targetWasHit =  false; 
 		lastTime = Time.time;
-		if (oculus != null)
+		if (oculus != null) {
 			origin = oculus;
-		if (normalCam != null)
+			showText( "Oculus!" );
+		}
+		else if (normalCam != null) {
 			origin = normalCam;
+			showText( "MainCamera!" );
+		}
 	}
 
 	// Update is called once per frame
