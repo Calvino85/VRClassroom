@@ -18,11 +18,11 @@ public class IsLookingAt : MonoBehaviour {
 		lastSelected = null;
 		targetWasHit =  false; 
 		lastTime = Time.time;
-		if (oculus != null) {
+		if (oculus != null && oculus.activeSelf && oculus.activeInHierarchy) {
 			origin = oculus;
 			showText( "Oculus!" );
 		}
-		else if (normalCam != null) {
+		else if (normalCam != null && normalCam.activeSelf && normalCam.activeInHierarchy) {
 			origin = normalCam;
 			showText( "MainCamera!" );
 		}
