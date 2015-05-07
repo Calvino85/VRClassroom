@@ -7,6 +7,8 @@ public class LookAtStudents : MonoBehaviour {
 	public GameObject Head;
 	public GameObject Following;
 
+	public bool pause;
+
 	private float timeLeft;
 	private float timeRotationLeft;
 	private int actualStudent;
@@ -20,6 +22,7 @@ public class LookAtStudents : MonoBehaviour {
 		actualStudent = 0;
 		startTransform = Student.transform;
 		finalTransform = Student.transform;
+		pause = false;
 	}
 	
 	// Update is called once per frame
@@ -29,6 +32,10 @@ public class LookAtStudents : MonoBehaviour {
 
 	void LateUpdate()
 	{
+		if (pause) {
+			Head.transform.LookAt(Student.transform);
+			return;
+		}
 		if (timeLeft <= 0f) {
 			actualStudent = Random.Range (0, Students.Length + Students.Length / 3 + 1);
 			timeLeft = Random.Range (1f, 10f);
