@@ -23,8 +23,8 @@ public class speak : MonoBehaviour {
 	void Start () {
 		att = 0;
 		angry = 0;
-		lenguage=0;
-		currentClip = 1;
+		lenguage=1;
+		currentClip = 5;
 		num = 0;
 		nameAudio = "videoen";
 		nameAnimation="";
@@ -34,10 +34,12 @@ public class speak : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		audio = GetComponent<AudioSource>();
 		animator.Play("interruption");
+
+		StartCoroutine(playAudio());
 	}
 
 	void Update() {
-		StartCoroutine(playAudio());
+
 	}
 
 	void setLenguage(int l){
@@ -48,57 +50,57 @@ public class speak : MonoBehaviour {
 		//Debug.Log (animator.StopPlayBack());
 
 		//Debug.Log (audio.clip.length);
-		if (!audio.isPlaying) {			
-			
-			if (lenguage == 0) {
-					audio.clip = englishAudioClip [currentClip - 1];
-					nameAnimation = nameAnimationEn;
-			} else {
-					audio.clip = spanishAudioClip [currentClip - 1];
-					nameAnimation = nameAnimationSp;
-			}
-			Debug.Log (nameAnimation + currentClip);
-//			Debug.Log (spanishAudioClip [currentClip - 1]);
-			Debug.Log (audio.clip.length);
-			animator.Play (nameAnimation + currentClip);
-			audio.Play ();
-
-			//yield WaitForSeconds(audio.clip.length);
-
-			yield return new WaitForSeconds (audio.clip.length);
-			audio.Stop ();
-			//animator.Play("interruption");
-			currentClip++;
-			//attention();
-
-			if ((currentClip > 16 && lenguage == 0)||(currentClip > 48 && lenguage == 1)) {
-					currentClip = 1;
-					att++;
-			}
-
-			if (att != 0) {
+		for (int i = 0; i < 16+lenguage*30; i++) {
+			if (!audio.isPlaying) {			
 				if (lenguage == 0) {
-					audio.clip = attEnglishAudioClip [att - 1];
-					nameAnimation = "atten";
+						audio.clip = englishAudioClip [currentClip - 1];
+						nameAnimation = nameAnimationEn;
 				} else {
-					audio.clip = attSpanishAudioClip [att - 1];
-					nameAnimation = "attsp";
+						audio.clip = spanishAudioClip [currentClip - 1];
+						nameAnimation = nameAnimationSp;
 				}
-				animator.Play (nameAnimation + att);
+				Debug.Log (nameAnimation + currentClip);
+	//			Debug.Log (spanishAudioClip [currentClip - 1]);
+				Debug.Log (audio.clip.length);
+				animator.Play (nameAnimation + currentClip);
 				audio.Play ();
-				
+
+				//yield WaitForSeconds(audio.clip.length);
+
 				yield return new WaitForSeconds (audio.clip.length);
 				audio.Stop ();
-				att++;				
-				
-				if (att > 4) {
-					att = 1;
-					
+				//animator.Play("interruption");
+				currentClip++;
+				//attention();
+
+				if ((currentClip > 16 && lenguage == 0)||(currentClip > 48 && lenguage == 1)) {
+						currentClip = 1;
+						att++;
 				}
-			}				
-		} else {
-			Debug.Log ("Esperando " +audio.clip.length);
-			yield return new WaitForSeconds (audio.clip.length);
+
+				if (att != 0) {
+					if (lenguage == 0) {
+						audio.clip = attEnglishAudioClip [att - 1];
+						nameAnimation = "atten";
+					} else {
+						audio.clip = attSpanishAudioClip [att - 1];
+						nameAnimation = "attsp";
+					}
+					animator.Play (nameAnimation + att);
+					audio.Play ();
+					
+					yield return new WaitForSeconds (audio.clip.length);
+					audio.Stop ();
+					att++;				
+					
+					if (att > 4) {
+						att = 1;						
+					}
+				}				
+			} else {
+				Debug.Log ("Esperando " +audio.clip.length);
+				yield return new WaitForSeconds (audio.clip.length);
+			}
 		}
 	}
 
