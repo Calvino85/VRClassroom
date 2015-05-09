@@ -79,7 +79,7 @@ public class StudentScript : MonoBehaviour {
 		switch (curBehavior) {
 		case Behavior.Stare:
 		case Behavior.TellTeacher:
-			Debug.Log ("Current State: " + curBehavior);
+//			Debug.Log ("Current State: " + curBehavior);
 			switch(curBehStep) {
 			case 0: initTime = Time.time; curBehStep = 1; break;
 			case 1: if (Time.time - initTime > timeToStare) {
@@ -106,7 +106,7 @@ public class StudentScript : MonoBehaviour {
 			}
 			break;
 		case Behavior.StareAngry:
-			Debug.Log ("Current State: " + curBehavior);
+//			Debug.Log ("Current State: " + curBehavior);
 			switch(curBehStep) {
 			case 0: curBehavior = Behavior.Stare; curBehStep = 2; break;
 			}

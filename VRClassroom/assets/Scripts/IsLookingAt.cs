@@ -13,6 +13,16 @@ public class IsLookingAt : MonoBehaviour {
 	bool targetWasHit;
 	float lastTime;
 
+	// distraction event
+	bool isStudentDistracted = false;
+	float initialTimeDistraction;
+	bool onDistractionEvent = false;
+	public float deltaDistraction = 5.0f;
+
+	public delegate void DistractionAction();
+	public static event DistractionAction OnDistraction;
+
+
 	// Use this for initialization
 	void Start () {
 		lastSelected = null;
@@ -47,6 +57,14 @@ public class IsLookingAt : MonoBehaviour {
 			targetWasHit =  false;
 			lastTime = Time.time;
 			deSelect( );	
+			checkDistraction (null);
+		}
+		if (isStudentDistracted && onDistractionEvent && Time.time > initialTimeDistraction + deltaDistraction) {
+			onDistractionEvent = false;
+			if( OnDistraction != null ) {
+				Debug.Log ("Distraction Triggered");
+				OnDistraction();
+			}
 		}
 	}
 
@@ -72,6 +90,19 @@ public class IsLookingAt : MonoBehaviour {
 		if( script != null )
 			script.TheStudentIsLooking (origin.transform.position);
 //		lastSelected.SetActive (false);
+		checkDistraction (obj);
+	}
+
+	void checkDistraction( GameObject obj ) {
+		if( obj == null || obj.name == null || !(obj.name.Equals("Teacher") || obj.name.Equals("Projector_Screen")) ) {
+			isStudentDistracted = true;
+			initialTimeDistraction = Time.time;
+			onDistractionEvent = true;			
+		}
+		else {
+			isStudentDistracted = false;
+			onDistractionEvent = false;
+		}
 	}
 
 	void showText( string t )
