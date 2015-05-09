@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-//Interconectar con el oculus.
+
 public class speak : MonoBehaviour {
 	public AudioClip[] spanishAudioClip;
 	public AudioClip[] englishAudioClip;
@@ -17,15 +17,17 @@ public class speak : MonoBehaviour {
 	private int num;
 	private int lenguage;
 	private int att;
-	private int angry;
+	private int pause;
+	private int call;
 
 	// Use this for initialization
 	void Start () {
-		att = 0;
-		angry = 0;
-		lenguage=1;
-		currentClip = 5;
+		att = 1;
+		pause = 0;
+		lenguage=0;
+		currentClip = 1;
 		num = 0;
+		call = 0;
 		nameAudio = "videoen";
 		nameAnimation="";
 		nameAnimationEn="animen";
@@ -46,39 +48,22 @@ public class speak : MonoBehaviour {
 		lenguage=l;
 	}
 
+	void pauseAnimation(){
+		pause = 1;
+	}
+
+	void unpauseAnimation(){
+		pause = 0;
+	}
+
 	IEnumerator playAudio(){
 		//Debug.Log (animator.StopPlayBack());
 
 		//Debug.Log (audio.clip.length);
-		for (int i = 0; i < 16+lenguage*30; i++) {
-			if (!audio.isPlaying) {			
-				if (lenguage == 0) {
-						audio.clip = englishAudioClip [currentClip - 1];
-						nameAnimation = nameAnimationEn;
-				} else {
-						audio.clip = spanishAudioClip [currentClip - 1];
-						nameAnimation = nameAnimationSp;
-				}
-				Debug.Log (nameAnimation + currentClip);
-	//			Debug.Log (spanishAudioClip [currentClip - 1]);
-				Debug.Log (audio.clip.length);
-				animator.Play (nameAnimation + currentClip);
-				audio.Play ();
+		for (int i = 0; i < 17+lenguage*32; i++) {
+			if (!audio.isPlaying&&pause==0) {			
 
-				//yield WaitForSeconds(audio.clip.length);
-
-				yield return new WaitForSeconds (audio.clip.length);
-				audio.Stop ();
-				//animator.Play("interruption");
-				currentClip++;
-				//attention();
-
-				if ((currentClip > 16 && lenguage == 0)||(currentClip > 48 && lenguage == 1)) {
-						currentClip = 1;
-						att++;
-				}
-
-				if (att != 0) {
+				if (att != 0 && call==1) {
 					if (lenguage == 0) {
 						audio.clip = attEnglishAudioClip [att - 1];
 						nameAnimation = "atten";
@@ -86,17 +71,39 @@ public class speak : MonoBehaviour {
 						audio.clip = attSpanishAudioClip [att - 1];
 						nameAnimation = "attsp";
 					}
+					Debug.Log (nameAnimation + att);
+					Debug.Log (audio.clip.length);
 					animator.Play (nameAnimation + att);
 					audio.Play ();
 					
 					yield return new WaitForSeconds (audio.clip.length);
 					audio.Stop ();
-					att++;				
-					
+
 					if (att > 4) {
-						att = 1;						
+						pause = 1;						
 					}
-				}				
+				}
+
+				if (lenguage == 0 && att ) {
+						audio.clip = englishAudioClip [currentClip - 1];
+						nameAnimation = nameAnimationEn;
+				} else {
+						audio.clip = spanishAudioClip [currentClip - 1];
+						nameAnimation = nameAnimationSp;
+				}
+				Debug.Log (nameAnimation + currentClip);
+				Debug.Log (audio.clip.length);
+				animator.Play (nameAnimation + currentClip);
+				audio.Play ();
+
+				yield return new WaitForSeconds (audio.clip.length);
+				audio.Stop ();
+				currentClip++;
+	
+				if ((currentClip > 17 && lenguage == 0)||(currentClip > 49 && lenguage == 1)) {
+					pause=1;
+				}
+								
 			} else {
 				Debug.Log ("Esperando " +audio.clip.length);
 				yield return new WaitForSeconds (audio.clip.length);
@@ -106,7 +113,7 @@ public class speak : MonoBehaviour {
 
 	public void attention(){
 		att++;
-		angry = 1;
+		call = 1;
 	}	
 }
 
