@@ -84,7 +84,7 @@ public class speak : MonoBehaviour {
 					}
 				}
 
-				if (lenguage == 0 && att ) {
+				if (lenguage == 0 && att != 0 ) {
 						audio.clip = englishAudioClip [currentClip - 1];
 						nameAnimation = nameAnimationEn;
 				} else {
