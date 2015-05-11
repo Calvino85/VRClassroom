@@ -21,6 +21,7 @@ public class Presentation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		language = GameObject.Find("PlaneO").GetComponent<lenguage>().l;
 		if (language == 1) {
 			projectorLight.material.SetTexture ("_ShadowTex", texturesSpanish [0]);
 			timeLeft = timesSpanish[0];
