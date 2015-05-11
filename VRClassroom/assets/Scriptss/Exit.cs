@@ -16,14 +16,23 @@ public class Exit : MonoBehaviour {
 	void Update () {
 		int att=GameObject.Find("Teacher").GetComponent<speak>().att;
 		int pause=GameObject.Find("Teacher").GetComponent<speak>().pause;
+		bool f=GameObject.Find("Teacher").GetComponent<speak>().f;
 
 		if(att>4&&pause==1&&play==true){
 			ObjectAnim.animation.Play("exit");
 			play=false;
-		}else{
-			//Application.LoadLevel(“menu”); //menu scene
-			Application.Quit();//exit 
 		}
+
+		if(f=true&&pause==1&&play==true){
+			ObjectAnim.animation.Play("exit");
+			play=false;
+
+		}
+
+		if(play==false&&!ObjectAnim.animation.isPlaying){
+			Application.LoadLevel("Start");
+		}
+
 	}
 
 	void exitAnimation(){

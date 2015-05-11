@@ -15,16 +15,18 @@ public class speak : MonoBehaviour {
 	private string nameAnimationEn;
 	private string nameAnimationSp;
 	private int num;
-	private int lenguage;
+	public int lenguage;
 	public int att;
 	public int pause;
 	public int call;
+	public bool f;
 	
 	// Use this for initialization
 	void Start () {
+		f=false;
 		att = 0;
 		pause = 0;
-		lenguage=0;
+		lenguage=GameObject.Find("PlaneO").GetComponent<lenguage>().l;
 		currentClip = 1;
 		num = 0;
 		call = 0;
@@ -36,7 +38,6 @@ public class speak : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		audio = GetComponent<AudioSource>();
 		animator.Play("interruption");
-		
 		StartCoroutine(playAudio());
 	}
 	
@@ -111,6 +112,7 @@ public class speak : MonoBehaviour {
 						
 						if ((currentClip > 17 && lenguage == 0)||(currentClip > 49 && lenguage == 1)) {
 							pause=1;
+							f=true;
 						}
 
 						distracted=GameObject.Find("Scripts").GetComponent<IsLookingAt>().isStudentDistracted;
