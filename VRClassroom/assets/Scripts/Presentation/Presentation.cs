@@ -14,6 +14,8 @@ public class Presentation : MonoBehaviour {
 
 	public bool pause;
 
+	public GameObject teacher;
+
 	private float timeLeft;
 	private int actualSlide;
 
@@ -37,6 +39,9 @@ public class Presentation : MonoBehaviour {
 		}
 		timeLeft -= Time.deltaTime;
 		if (timeLeft <= 0) {
+			if(teacher.GetComponent<speak>().pause == 1){
+				return;
+			}
 			actualSlide++;
 			if(actualSlide < numSlides){
 				if (language == 1) {

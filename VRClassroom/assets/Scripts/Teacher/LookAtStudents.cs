@@ -27,7 +27,7 @@ public class LookAtStudents : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-			
+		 
 	}
 
 	void LateUpdate()
@@ -37,6 +37,10 @@ public class LookAtStudents : MonoBehaviour {
 			return;
 		}
 		if (timeLeft <= 0f) {
+			if(this.GetComponent<speak>().pause == 1){
+				Head.transform.LookAt(Student.transform);
+				return;
+			}
 			actualStudent = Random.Range (0, Students.Length + Students.Length / 3 + 1);
 			timeLeft = Random.Range (1f, 10f);
 			timeRotationLeft = 1f;
