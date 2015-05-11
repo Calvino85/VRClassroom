@@ -25,4 +25,8 @@ public class Exit : MonoBehaviour {
 			Application.Quit();//exit 
 		}
 	}
+
+	void exitAnimation(){
+		ObjectAnim.animation.Play("exit");
+	}
 }

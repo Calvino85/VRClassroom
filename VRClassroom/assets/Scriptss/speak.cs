@@ -116,6 +116,9 @@ public class speak : MonoBehaviour {
 						distracted=GameObject.Find("Scripts").GetComponent<IsLookingAt>().isStudentDistracted;
 
 						if(distracted==true&&call==0){
+							if(att==0){
+								att++;
+							}
 							call=1;						
 						}
 					}
