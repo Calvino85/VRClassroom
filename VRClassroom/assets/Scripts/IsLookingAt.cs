@@ -14,7 +14,7 @@ public class IsLookingAt : MonoBehaviour {
 	float lastTime;
 
 	// distraction event
-	bool isStudentDistracted = false;
+	public bool isStudentDistracted = false;
 	float initialTimeDistraction;
 	bool onDistractionEvent = false;
 	public float deltaDistraction = 5.0f;

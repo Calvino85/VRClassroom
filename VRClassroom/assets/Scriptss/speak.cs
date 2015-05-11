@@ -16,9 +16,9 @@ public class speak : MonoBehaviour {
 	private string nameAnimationSp;
 	private int num;
 	private int lenguage;
-	private int att;
-	private int pause;
-	private int call;
+	public int att;
+	public int pause;
+	public int call;
 	
 	// Use this for initialization
 	void Start () {
@@ -48,11 +48,11 @@ public class speak : MonoBehaviour {
 		lenguage=l;
 	}
 	
-	void pauseAnimation(){
+	public void pauseAnimation(){
 		pause = 1;
 	}
 	
-	void unpauseAnimation(){
+	public void unpauseAnimation(){
 		pause = 0;
 	}
 	
@@ -60,10 +60,13 @@ public class speak : MonoBehaviour {
 		//Debug.Log (animator.StopPlayBack());
 		
 		//Debug.Log (audio.clip.length);
-		for (int i = 0; i < 17+lenguage*32; i++) {
-			if (!audio.isPlaying&&pause==0) {			
-				
-				if (att != 0 && call==1) {
+		for (int i = 0; i < 17+lenguage*320; i++) {
+
+			bool distracted=GameObject.Find("Scripts").GetComponent<IsLookingAt>().isStudentDistracted;
+			Debug.Log ("Distraido: "+distracted);
+			if (!audio.isPlaying) {			
+				if (att != 0 && call==1&&distracted==true) {
+					i--;
 					if (lenguage == 0) {
 						audio.clip = attEnglishAudioClip [att - 1];
 						nameAnimation = "atten";
@@ -78,42 +81,54 @@ public class speak : MonoBehaviour {
 					
 					yield return new WaitForSeconds (audio.clip.length);
 					audio.Stop ();
-					
+
+					call=0;
+					pause=0;
+					att++;
+
 					if (att > 4) {
 						pause = 1;						
 					}
+
 				}else{
-					
-					if (lenguage == 0 ) {
-						audio.clip = englishAudioClip [currentClip - 1];
-						nameAnimation = nameAnimationEn;
-					} else {
-						audio.clip = spanishAudioClip [currentClip - 1];
-						nameAnimation = nameAnimationSp;
-					}
-					Debug.Log (nameAnimation + currentClip);
-					Debug.Log (audio.clip.length);
-					animator.Play (nameAnimation + currentClip);
-					audio.Play ();
-					
-					yield return new WaitForSeconds (audio.clip.length);
-					audio.Stop ();
-					currentClip++;
-					
-					if ((currentClip > 17 && lenguage == 0)||(currentClip > 49 && lenguage == 1)) {
-						pause=1;
+					if(pause==0){
+						if (lenguage == 0 ) {
+							audio.clip = englishAudioClip [currentClip - 1];
+							nameAnimation = nameAnimationEn;
+						} else {
+							audio.clip = spanishAudioClip [currentClip - 1];
+							nameAnimation = nameAnimationSp;
+						}
+						Debug.Log (nameAnimation + currentClip);
+						Debug.Log (audio.clip.length);
+						animator.Play (nameAnimation + currentClip);
+						audio.Play ();
+						
+						yield return new WaitForSeconds (audio.clip.length);
+						audio.Stop ();
+						currentClip++;
+						
+						if ((currentClip > 17 && lenguage == 0)||(currentClip > 49 && lenguage == 1)) {
+							pause=1;
+						}
+
+						if(distracted==true&&call==0){
+							call=1;						
+						}
 					}
 				}
 				
 			} else {
-				Debug.Log ("Esperando " +audio.clip.length);
-				yield return new WaitForSeconds (audio.clip.length);
+				Debug.Log ("Esperando 1" );
+				yield return new WaitForSeconds (1);
 			}
 		}
 	}
 	
 	public void attention(){
-		att++;
+		if(att==0){
+			att++;
+		}
 		call = 1;
 	}	
 }
