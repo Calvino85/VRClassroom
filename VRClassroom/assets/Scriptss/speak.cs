@@ -57,15 +57,16 @@ public class speak : MonoBehaviour {
 	}
 	
 	IEnumerator playAudio(){
-		//Debug.Log (animator.StopPlayBack());
+		//Debug.Log (animator.StopPlayBack());  
 		
 		//Debug.Log (audio.clip.length);
 		for (int i = 0; i < 17+lenguage*320; i++) {
 
 			bool distracted=GameObject.Find("Scripts").GetComponent<IsLookingAt>().isStudentDistracted;
-			Debug.Log ("Distraido: "+distracted);
+			//Debug.Log ("Distraido: "+distracted);
+			//Debug.Log ("call: "+call);
 			if (!audio.isPlaying) {			
-				if (att != 0 && call==1&&distracted==true) {
+				if ((att != 0 && call==1)||(distracted==true && call==1)) {
 					i--;
 					if (lenguage == 0) {
 						audio.clip = attEnglishAudioClip [att - 1];
@@ -74,8 +75,8 @@ public class speak : MonoBehaviour {
 						audio.clip = attSpanishAudioClip [att - 1];
 						nameAnimation = "attsp";
 					}
-					Debug.Log (nameAnimation + att);
-					Debug.Log (audio.clip.length);
+					//Debug.Log (nameAnimation + att);
+					///Debug.Log (audio.clip.length);
 					animator.Play (nameAnimation + att);
 					audio.Play ();
 					
@@ -99,8 +100,8 @@ public class speak : MonoBehaviour {
 							audio.clip = spanishAudioClip [currentClip - 1];
 							nameAnimation = nameAnimationSp;
 						}
-						Debug.Log (nameAnimation + currentClip);
-						Debug.Log (audio.clip.length);
+						//Debug.Log (nameAnimation + currentClip);
+						//Debug.Log (audio.clip.length);
 						animator.Play (nameAnimation + currentClip);
 						audio.Play ();
 						
@@ -112,6 +113,8 @@ public class speak : MonoBehaviour {
 							pause=1;
 						}
 
+						distracted=GameObject.Find("Scripts").GetComponent<IsLookingAt>().isStudentDistracted;
+
 						if(distracted==true&&call==0){
 							call=1;						
 						}
@@ -119,7 +122,7 @@ public class speak : MonoBehaviour {
 				}
 				
 			} else {
-				Debug.Log ("Esperando 1" );
+				//Debug.Log ("Esperando 1" );
 				yield return new WaitForSeconds (1);
 			}
 		}

@@ -17,7 +17,7 @@ public class DistractionListener : MonoBehaviour {
 	}
 	
 	void HandleDistraction (){
-		Debug.Log ("Esperando debug");
+		//Debug.Log ("Esperando debug");
 		this.GetComponent<speak>().attention();
 		this.GetComponent<speak>().pauseAnimation();
 		showText ("Student is distracted!");
