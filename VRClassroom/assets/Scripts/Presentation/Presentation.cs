@@ -16,7 +16,7 @@ public class Presentation : MonoBehaviour {
 
 	public GameObject teacher;
 
-	private float timeLeft;
+	public float timeLeft;
 	private int actualSlide;
 
 	// Use this for initialization
@@ -38,9 +38,8 @@ public class Presentation : MonoBehaviour {
 		if (pause) {
 			return;
 		}
-		timeLeft -= Time.deltaTime;
 		if (timeLeft <= 0) {
-			if(teacher.GetComponent<speak>().pause == 1){
+			if(teacher.GetComponent<speak>().call == 1){
 				return;
 			}
 			actualSlide++;
@@ -56,5 +55,6 @@ public class Presentation : MonoBehaviour {
 				projectorLight.material.SetTexture ("_ShadowTex", null);
 			}
 		}
+		timeLeft -= Time.deltaTime;
 	}
 }

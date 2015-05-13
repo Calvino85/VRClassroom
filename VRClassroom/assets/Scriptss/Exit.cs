@@ -23,13 +23,14 @@ public class Exit : MonoBehaviour {
 			play=false;
 		}
 
-		if(f=true&&pause==1&&play==true){
+		if(f&&pause==1&&play==true){
 			ObjectAnim.animation.Play("exit");
 			play=false;
 
 		}
 
 		if(play==false&&!ObjectAnim.animation.isPlaying){
+			GameObject.DestroyImmediate(GameObject.Find("PlaneO"));
 			Application.LoadLevel("Start");
 		}
 

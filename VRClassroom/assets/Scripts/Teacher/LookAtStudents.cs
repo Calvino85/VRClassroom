@@ -9,6 +9,8 @@ public class LookAtStudents : MonoBehaviour {
 
 	public bool pause;
 
+	public GameObject presentation;
+
 	private float timeLeft;
 	private float timeRotationLeft;
 	private int actualStudent;
@@ -36,11 +38,12 @@ public class LookAtStudents : MonoBehaviour {
 			Head.transform.LookAt(Student.transform);
 			return;
 		}
+		if(presentation.GetComponent<Presentation>().timeLeft <= 0 && this.GetComponent<speak>().pause == 1){
+			Head.transform.LookAt(Student.transform);
+			return;
+		}
+		Debug.Log(presentation.GetComponent<Presentation>().timeLeft + " " + this.GetComponent<speak>().pause);
 		if (timeLeft <= 0f) {
-			if(this.GetComponent<speak>().pause == 1){
-				Head.transform.LookAt(Student.transform);
-				return;
-			}
 			actualStudent = Random.Range (0, Students.Length + Students.Length / 3 + 1);
 			timeLeft = Random.Range (1f, 10f);
 			timeRotationLeft = 1f;
