@@ -1,0 +1,25 @@
+Unity Player [version: Unity 4.6.4f1_99f88340878d]
+
+OculusPlugin.DLL caused an Access Violation (0xc0000005)
+  in module OculusPlugin.DLL at 0033:e440f9e3.
+
+Error occurred at 2015-06-01_173248.
+C:\Users\Andres R\Documents\VRClassroom\VRClassroom\Executables\Andres.exe, run by Andres R.
+27% memory in use.
+8191 MB physical memory [5903 MB free].
+16383 MB paging file [13245 MB free].
+134217728 MB user address space [134217551 MB free].
+Read from location 00000000 caused an access violation.
+
+Context:
+RDI:    0x0000003b  RSI: 0x00e7efc8  RAX:   0x0000003b
+RBX:    0xe4492518  RCX: 0x00000000  RDX:   0x0000004b
+RIP:    0xe440f9e3  RBP: 0x00e7ee30  SegCs: 0x00000033
+EFlags: 0x00010202  RSP: 0x00e7ecc0  SegSs: 0x0000002b
+R8:    0x00e7efd8  R9: 0x0000003b  R10:   0x00e7efc8
+R11:    0x00000006  R12: 0xffffffff  R13:   0x00e7edb0
+R14:    0x00000008  R15: 0x00000000
+
+Bytes at CS:EIP:
+4c 8b 01 41 ff 10 b9 01 00 00 00 c6 44 07 0c 00 
+== [end of error.log] ==

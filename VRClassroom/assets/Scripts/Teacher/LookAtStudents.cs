@@ -42,7 +42,6 @@ public class LookAtStudents : MonoBehaviour {
 			Head.transform.LookAt(Student.transform);
 			return;
 		}
-		Debug.Log(presentation.GetComponent<Presentation>().timeLeft + " " + this.GetComponent<speak>().pause);
 		if (timeLeft <= 0f) {
 			actualStudent = Random.Range (0, Students.Length + Students.Length / 3 + 1);
 			timeLeft = Random.Range (1f, 10f);
