@@ -7,7 +7,7 @@ public class speak : MonoBehaviour {
 	public AudioClip[] attSpanishAudioClip;
 	public AudioClip[] attEnglishAudioClip;
 	AudioSource audio;
-	private int currentClip;
+	public int currentClip;
 	public Animator animator;
 	
 	private string nameAudio;
@@ -26,7 +26,8 @@ public class speak : MonoBehaviour {
 		f=false;
 		att = 0;
 		pause = 0;
-		lenguage=GameObject.Find("PlaneO").GetComponent<lenguage>().l;
+		//lenguage=GameObject.Find("PlaneO").GetComponent<lenguage>().l;
+		lenguage=0;
 		currentClip = 1;
 		num = 0;
 		call = 0;
@@ -66,6 +67,7 @@ public class speak : MonoBehaviour {
 			bool distracted=GameObject.Find("Scripts").GetComponent<IsLookingAt>().isStudentDistracted;
 			//Debug.Log ("Distraido: "+distracted);
 			//Debug.Log ("call: "+call);
+			//Debug.Log ("Tocando: "+audio.isPlaying);
 			if (!audio.isPlaying) {			
 				if ((att != 0 && call==1)||(distracted==true && call==1)) {
 					i--;
@@ -81,8 +83,8 @@ public class speak : MonoBehaviour {
 					animator.Play (nameAnimation + att);
 					audio.Play ();
 					
-					yield return new WaitForSeconds (audio.clip.length);
-					audio.Stop ();
+					//yield return new WaitForSeconds (audio.clip.length);
+					//audio.Stop ();
 
 					call=0;
 					pause=0;
@@ -106,7 +108,40 @@ public class speak : MonoBehaviour {
 						animator.Play (nameAnimation + currentClip);
 						audio.Play ();
 						
-						yield return new WaitForSeconds (audio.clip.length);
+						//yield return new WaitForSeconds (audio.clip.length);
+						int t= (int) audio.clip.length+1;
+						bool bouttonPress=false;
+						for (int j = 0; j < t ; j++) {
+							if(audio.isPlaying){
+								yield return new WaitForSeconds (1);
+							}
+							if(bouttonPress==false){
+								if(GameObject.Find("TheStudent").GetComponent<Hand>().buttonValue != -1 ){
+									if(GameObject.Find("TheStudent").GetComponent<Hand>().buttonValue == 4 ){
+										Debug.Log ("Adelanto");
+										advance();
+										audio.Stop ();
+										animator.Play("interruption");
+										bouttonPress=true;
+										Debug.Log("SA1");
+										break;
+										Debug.Log("SA2");
+									}else{									
+										if(GameObject.Find("TheStudent").GetComponent<Hand>().buttonValue == 5 ){
+											Debug.Log ("Retraso");
+											backward();
+											i--;
+											audio.Stop ();
+											animator.Play("interruption");
+											bouttonPress=true;
+											break;
+										}
+									}
+								}
+							}
+							Debug.Log("SA3");
+						}
+						Debug.Log("SA4");
 						audio.Stop ();
 						currentClip++;
 						
@@ -125,14 +160,33 @@ public class speak : MonoBehaviour {
 						}
 					}
 				}
+
+
 				
 			} else {
 				//Debug.Log ("Esperando 1" );
-				yield return new WaitForSeconds (1);
+				//yield return new WaitForSeconds (1);
 			}
 		}
 	}
-	
+
+	public void advance(){
+		//currentClip++;
+
+		if (currentClip>16) {
+			currentClip=16;
+		}
+	}
+
+	public void backward(){
+		currentClip=currentClip-2;
+
+
+		if(currentClip<0){
+			currentClip=1;
+		}
+	}
+
 	public void attention(){
 		if(att==0){
 			att++;

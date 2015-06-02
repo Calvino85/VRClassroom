@@ -2,8 +2,8 @@
 using System.Collections;
 using Nod;
 
-public class AppStart : MonoBehaviour {
-
+public class Select : MonoBehaviour {
+	
 	private NodControler nod;
 	private NodRing ring;	
 	private bool nodRingConnected = false;	
@@ -63,18 +63,18 @@ public class AppStart : MonoBehaviour {
 		
 		//Example of applying the rings orientation to the local transform.
 		//Vector3 updatePosition = new Vector3(0.001f * (float)ring.position2D.x, -0.001f * ring.position2D.y);
-		
+
 		//Debug.Log (lastTime+" "+Time.time);
 		
 		buttonValue=buttonPress();
-		
-		
+
+
 		Debug.Log (buttonValue);
 		/**/
 	}
 	
 	private GestureEventType mostRecentGesture = GestureEventType.NONE;
-	
+
 	private int buttonPress(){
 		Debug.Log ("Hola");
 		if (nodRingConnected) {	
@@ -110,19 +110,8 @@ public class AppStart : MonoBehaviour {
 					}	
 				}
 			}
-		}	/**/
+		}	
 		return -1;
 	}
-	public void TestButton(GameObject g) {
-		//Debug.Log ("Espa "+g.name);
-
-		if(g.name=="ButtonEn"){
-			GameObject.Find("PlaneO").GetComponent<lenguage>().l=0;
-		}else{
-			GameObject.Find("PlaneO").GetComponent<lenguage>().l=1;
-		}
-		
-		Application.LoadLevel("Classroom");
-		Object.DontDestroyOnLoad(GameObject.Find("PlaneO"));
-	}
+	
 }
