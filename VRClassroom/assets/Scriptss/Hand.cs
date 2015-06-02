@@ -83,7 +83,7 @@ public class Hand : MonoBehaviour {
 			//Debug.Log ("resta= "+(cube.transform.localPosition.y-initialPosition.y));
 			
 			
-			if (cube.transform.localPosition.y - initialPosition.y > 0.5) {
+			if (cube.transform.localPosition.y - initialPosition.y < -0.5) {
 					up = true;
 			} else {
 				up=false;
@@ -100,7 +100,9 @@ public class Hand : MonoBehaviour {
 					sphere.GetComponent<Renderer> ().material.color = Color.red;
 					//Debug.Log ("time: "+lastTime);
 			} else {
-				sphere.GetComponent<Renderer> ().enabled = false;
+				if(grabar==false){
+					sphere.GetComponent<Renderer> ().enabled = false;
+				}
 			}
 			
 			//Debug.Log ("time: "+(Time.time - lastTime));
