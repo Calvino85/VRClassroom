@@ -69,14 +69,31 @@ public class Select : MonoBehaviour {
 		buttonValue=buttonPress();
 
 
-		Debug.Log (buttonValue);
+		bool bs=GameObject.Find("ButtonS").GetComponent<SelectSpanish>().selected;
+		bool be=GameObject.Find("ButtonEn").GetComponent<SelectEnglish>().selected;
+
+		Debug.Log ("BTT "+buttonValue+" BS "+bs);
+		Debug.Log ("BTT "+buttonValue+" BE "+be);
+		if(be==true&&buttonValue==4){
+			GameObject.Find("PlaneO").GetComponent<lenguage>().l=0;
+			Application.LoadLevel("Classroom");
+			Object.DontDestroyOnLoad(GameObject.Find("PlaneO"));
+		}
+
+		if(bs==true&&buttonValue==4){
+			GameObject.Find("PlaneO").GetComponent<lenguage>().l=1;
+			Application.LoadLevel("Classroom");
+			Object.DontDestroyOnLoad(GameObject.Find("PlaneO"));
+		}
+
+		//Debug.Log (buttonValue);
 		/**/
 	}
 	
 	private GestureEventType mostRecentGesture = GestureEventType.NONE;
 
 	private int buttonPress(){
-		Debug.Log ("Hola");
+		//Debug.Log ("Hola");
 		if (nodRingConnected) {	
 			string [] buttonNames = {"touch0", "touch1", "touch2", "tactile0", "tactile1"};
 			string [] buttonPressStatus = {
@@ -88,7 +105,7 @@ public class Select : MonoBehaviour {
 			};
 			
 			//if(ring.buttonState.touch0==true){
-			Debug.Log (ring.buttonState.touch0);
+			//Debug.Log (ring.buttonState.touch0);
 			//}
 			
 			if(ring.buttonState.touch0 == true){

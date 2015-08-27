@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using Nod;
 
@@ -11,6 +12,8 @@ public class AppStart : MonoBehaviour {
 	public float lastTime=0;
 	public bool up = false;
 	public int buttonValue=-1;
+	public Button boton1;
+	public Button boton2;
 	
 	private bool RingConnectedAndInitialized()
 	{
@@ -67,7 +70,6 @@ public class AppStart : MonoBehaviour {
 		//Debug.Log (lastTime+" "+Time.time);
 		
 		buttonValue=buttonPress();
-		
 		
 		Debug.Log (buttonValue);
 		/**/

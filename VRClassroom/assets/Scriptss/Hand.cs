@@ -9,6 +9,7 @@ public class Hand : MonoBehaviour {
 		private bool nodRingConnected = false;	
 		private const int ringID = 0; //0 for the first connected ring
 		public float lastTime=0;
+		public float lastTimeRecenter=0;
 		public bool up = false;
 		public int buttonValue=-1;
 		public Vector3 initialPosition;
@@ -84,39 +85,37 @@ public class Hand : MonoBehaviour {
 			
 			
 			if (cube.transform.localPosition.y - initialPosition.y < -0.5) {
-					up = true;
+					up = true;					
 			} else {
 				up=false;
 				takeTime=false;
 			}
 
 			if (up == true) {
-					if(takeTime==false){
-						lastTime = Time.time;
-						takeTime=true;
-					}
-					
+				if(takeTime==false){
+					lastTime = Time.time;
+					takeTime=true;
 					sphere.GetComponent<Renderer> ().enabled = true;
 					sphere.GetComponent<Renderer> ().material.color = Color.red;
-					//Debug.Log ("time: "+lastTime);
+				}
+				//Debug.Log ("time: "+lastTime);
 			} else {
-				if(grabar==false){
+				if(grabar) {
+					grabar = false;
 					sphere.GetComponent<Renderer> ().enabled = false;
+					GameObject.Find("DataController").GetComponent<ControladorMicrofono>().Detener();
 				}
 			}
 			
 			//Debug.Log ("time: "+(Time.time - lastTime));
 
-			if(Time.time - lastTime > 5.0&& up==true){				
+			if(!grabar && Time.time - lastTime > 5.0 && up==true){				
 				
-				Debug.Log ("Pasaron 5 seg");
+				//Debug.Log ("Pasaron 5 seg");
 				sphere.GetComponent<Renderer>().material.color = Color.green;
 				grabar=true;
+				GameObject.Find("DataController").GetComponent<ControladorMicrofono>().Grabar();
 
-			}
-
-			if(grabar==true){
-				sphere.GetComponent<Renderer>().material.color = Color.green;
 			}
 
 			//Debug.Log (lastTime+" "+Time.time);
@@ -125,19 +124,22 @@ public class Hand : MonoBehaviour {
 			
 			if(buttonValue==3){
 				if(takeTimeRecenter==false){
-					lastTime = Time.time;
+					lastTimeRecenter = Time.time;
 					takeTimeRecenter=true;
 				}
 			}else{
 				takeTimeRecenter=false;
 			}
 		
-			if(Time.time - lastTime > 1.0&&buttonValue==3){
-				//recentrar
+			if(takeTimeRecenter && Time.time - lastTimeRecenter > 1.0 && buttonValue==3){
+				takeTimeRecenter=false;
+				OVRDevice.ResetOrientation ();
+				//recenter 
+				//Debug.Log ("Recenter");
 			}
 
-			Debug.Log (buttonValue);
-		           /**/
+			//Debug.Log (buttonValue);
+            /**/
 		}
 		
 		private GestureEventType mostRecentGesture = GestureEventType.NONE;
@@ -223,7 +225,7 @@ public class Hand : MonoBehaviour {
 		}/**/
 
 		private int buttonPress(){
-		Debug.Log ("Hola "+nodRingConnected);
+		//Debug.Log ("Hola "+nodRingConnected);
 			if (nodRingConnected) {	
 				string [] buttonNames = {"touch0", "touch1", "touch2", "tactile0", "tactile1"};
 				string [] buttonPressStatus = {
@@ -235,7 +237,7 @@ public class Hand : MonoBehaviour {
 				};
 
 				//if(ring.buttonState.touch0==true){
-					Debug.Log (ring.buttonState.touch0);
+					//Debug.Log (ring.buttonState.touch0);
 				//}
 
 				if(ring.buttonState.touch0 == true){

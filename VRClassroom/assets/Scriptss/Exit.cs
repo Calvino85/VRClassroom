@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class Exit : MonoBehaviour {
-	public Animation animation;
 	public GameObject ObjectAnim;
 	private bool play;
 	private bool exit;
@@ -19,17 +18,17 @@ public class Exit : MonoBehaviour {
 		bool f=GameObject.Find("Teacher").GetComponent<speak>().f;
 
 		if(att>4&&pause==1&&play==true){
-			ObjectAnim.animation.Play("exit");
+			ObjectAnim.GetComponent<Animation>().Play("exit");
 			play=false;
 		}
 
 		if(f&&pause==1&&play==true){
-			ObjectAnim.animation.Play("exit");
+			ObjectAnim.GetComponent<Animation>().Play("exit");
 			play=false;
 
 		}
 
-		if(play==false&&!ObjectAnim.animation.isPlaying){
+		if(play==false&&!ObjectAnim.GetComponent<Animation>().isPlaying){
 			GameObject.DestroyImmediate(GameObject.Find("PlaneO"));
 			Application.LoadLevel("Start");
 		}
@@ -37,6 +36,6 @@ public class Exit : MonoBehaviour {
 	}
 
 	void exitAnimation(){
-		ObjectAnim.animation.Play("exit");
+		ObjectAnim.GetComponent<Animation>().Play("exit");
 	}
 }

@@ -26,8 +26,8 @@ public class speak : MonoBehaviour {
 		f=false;
 		att = 0;
 		pause = 0;
-		//lenguage=GameObject.Find("PlaneO").GetComponent<lenguage>().l;
-		lenguage=0;
+		lenguage=GameObject.Find("PlaneO").GetComponent<lenguage>().l;
+		//lenguage=0;
 		currentClip = 1;
 		num = 0;
 		call = 0;
@@ -62,7 +62,7 @@ public class speak : MonoBehaviour {
 		//Debug.Log (animator.StopPlayBack());  
 		
 		//Debug.Log (audio.clip.length);
-		for (int i = 0; i < 17+lenguage*320; i++) {
+		for (int i = 0; i < 317+lenguage*320; i++) {
 
 			bool distracted=GameObject.Find("Scripts").GetComponent<IsLookingAt>().isStudentDistracted;
 			//Debug.Log ("Distraido: "+distracted);
@@ -82,9 +82,14 @@ public class speak : MonoBehaviour {
 					///Debug.Log (audio.clip.length);
 					animator.Play (nameAnimation + att);
 					audio.Play ();
+
+					GameObject.Find ("Projector").GetComponent<Presentation>().pause = true;
+					GameObject.Find ("Teacher").GetComponent<LookAtStudents>().pause = true;
 					
-					//yield return new WaitForSeconds (audio.clip.length);
-					//audio.Stop ();
+					yield return new WaitForSeconds (audio.clip.length);
+					audio.Stop ();
+					GameObject.Find ("Projector").GetComponent<Presentation>().pause = false;
+					GameObject.Find ("Teacher").GetComponent<LookAtStudents>().pause = false;
 
 					call=0;
 					pause=0;
