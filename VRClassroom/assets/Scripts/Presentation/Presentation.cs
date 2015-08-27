@@ -57,4 +57,41 @@ public class Presentation : MonoBehaviour {
 		}
 		timeLeft -= Time.deltaTime;
 	}
+
+	public void advance(){
+		actualSlide++;
+		if(actualSlide < numSlides){
+			if (language == 1) {
+				projectorLight.material.SetTexture ("_ShadowTex", texturesSpanish [actualSlide]);
+				timeLeft = timesSpanish[actualSlide];
+			} else {
+				projectorLight.material.SetTexture ("_ShadowTex", texturesEnglish [actualSlide]);
+				timeLeft = timesEnglish[actualSlide];
+			}
+		} else{
+			projectorLight.material.SetTexture ("_ShadowTex", null);
+		}
+	}
+
+	public void getBack(){
+		actualSlide--;
+		if(actualSlide > 0){
+			if (language == 1) {
+				projectorLight.material.SetTexture ("_ShadowTex", texturesSpanish [actualSlide]);
+				timeLeft = timesSpanish[actualSlide];
+			} else {
+				projectorLight.material.SetTexture ("_ShadowTex", texturesEnglish [actualSlide]);
+				timeLeft = timesEnglish[actualSlide];
+			}
+		} else{
+			actualSlide = 0;
+			if (language == 1) {
+				projectorLight.material.SetTexture ("_ShadowTex", texturesSpanish [actualSlide]);
+				timeLeft = timesSpanish[actualSlide];
+			} else {
+				projectorLight.material.SetTexture ("_ShadowTex", texturesEnglish [actualSlide]);
+				timeLeft = timesEnglish[actualSlide];
+			}
+		}
+	}
 }

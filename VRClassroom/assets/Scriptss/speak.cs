@@ -125,6 +125,7 @@ public class speak : MonoBehaviour {
 									if(GameObject.Find("TheStudent").GetComponent<Hand>().buttonValue == 4 ){
 										Debug.Log ("Adelanto");
 										advance();
+										GameObject.Find ("Projector").GetComponent<Presentation>().advance();
 										audio.Stop ();
 										animator.Play("interruption");
 										bouttonPress=true;
@@ -135,6 +136,7 @@ public class speak : MonoBehaviour {
 										if(GameObject.Find("TheStudent").GetComponent<Hand>().buttonValue == 5 ){
 											Debug.Log ("Retraso");
 											backward();
+											GameObject.Find ("Projector").GetComponent<Presentation>().getBack();
 											i--;
 											audio.Stop ();
 											animator.Play("interruption");
