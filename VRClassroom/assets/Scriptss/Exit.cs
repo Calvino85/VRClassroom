@@ -18,18 +18,20 @@ public class Exit : MonoBehaviour {
 		int pause=GameObject.Find("Teacher").GetComponent<speak>().pause;
 		bool f=GameObject.Find("Teacher").GetComponent<speak>().f;
 
+		Debug.Log(ObjectAnim.GetComponent<Animation>().isPlaying);
+
 		if(att>4&&pause==1&&play==true){
-			ObjectAnim.animation.Play("exit");
+			ObjectAnim.GetComponent<Animation>().Play("exit");
 			play=false;
 		}
 
 		if(f&&pause==1&&play==true){
-			ObjectAnim.animation.Play("exit");
+			ObjectAnim.GetComponent<Animation>().Play("exit");
 			play=false;
 
 		}
 
-		if(play==false&&!ObjectAnim.animation.isPlaying){
+		if(play==false&&!ObjectAnim.GetComponent<Animation>().isPlaying){
 			GameObject.DestroyImmediate(GameObject.Find("PlaneO"));
 			Application.LoadLevel("Start");
 		}
@@ -37,6 +39,6 @@ public class Exit : MonoBehaviour {
 	}
 
 	void exitAnimation(){
-		ObjectAnim.animation.Play("exit");
+		ObjectAnim.GetComponent<Animation>().Play("exit");
 	}
 }

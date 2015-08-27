@@ -80,9 +80,13 @@ public class speak : MonoBehaviour {
 					///Debug.Log (audio.clip.length);
 					animator.Play (nameAnimation + att);
 					audio.Play ();
-					
+					GameObject.Find ("Projector").GetComponent<Presentation>().pause = true;
+					GameObject.Find ("Teacher").GetComponent<LookAtStudents>().pause = true;
+
 					yield return new WaitForSeconds (audio.clip.length);
 					audio.Stop ();
+					GameObject.Find ("Projector").GetComponent<Presentation>().pause = false;
+					GameObject.Find ("Teacher").GetComponent<LookAtStudents>().pause = false;
 
 					call=0;
 					pause=0;
